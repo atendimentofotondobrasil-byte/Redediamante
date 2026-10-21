@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Inscrição Rede Diamante</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+body{margin:0}img{max-width:100%}[hidden]{display:none!important}
+
+/* Layout: navy masthead band, then a two-column form (sticky block index on the left, form blocks on the right); single column on phones */
+:root{
+  --navy:#0D0D1F; --steel:#163D63; --blue:#205F9A;
+  --bg:#F3F5F8; --surface:#FFFFFF; --fg:#141A26; --muted:#5A6577; --line:#D7DDE6; --soft:#E8EEF5;
+  --accent:#205F9A; --accent-fg:#FFFFFF; --ok:#1F7A4D; --err:#B3261E; --band-fg:#F2F5FA; --band-muted:#A9B6CA;
+  --display:"Barlow Semi Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r:6px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0B0E16; --surface:#131927; --fg:#E6EAF1; --muted:#97A2B5; --line:#26304A; --soft:#1A2236;
+  --accent:#5B9BD8; --accent-fg:#0B0E16; --ok:#4CC08A; --err:#F2827A; --navy:#070912; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0B0E16; --surface:#131927; --fg:#E6EAF1; --muted:#97A2B5; --line:#26304A; --soft:#1A2236;
+  --accent:#5B9BD8; --accent-fg:#0B0E16; --ok:#4CC08A; --err:#F2827A; --navy:#070912; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--navy)}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+
+/* masthead */
+.band{background:var(--navy);color:var(--band-fg)}
+.band .wrap{padding-block:28px 32px;display:grid;gap:22px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;letter-spacing:.22em;font-size:15px}
+.brand svg{width:30px;height:30px}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--band-muted);font-weight:500}
+.band h1{font-size:clamp(30px,5vw,46px);font-weight:700;line-height:1.05;margin-top:6px}
+.band h1 span{color:#7FB2E5}
+.lede{max-width:62ch;color:var(--band-muted);margin:10px 0 0}
+.facts{display:flex;flex-wrap:wrap;gap:10px 28px;border-top:1px solid #2A3350;padding-top:16px}
+.fact b{display:block;font-family:var(--display);font-size:22px;font-weight:600;color:var(--band-fg);font-variant-numeric:tabular-nums}
+.fact small{color:var(--band-muted);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+
+/* body layout */
+.main{display:grid;grid-template-columns:220px minmax(0,1fr);gap:36px;padding-block:32px 64px}
+@media (max-width:820px){.main{grid-template-columns:minmax(0,1fr)}.rail{display:none}}
+.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 20px);align-self:start;display:grid;gap:4px}
+.rail a{display:flex;gap:10px;align-items:baseline;padding:8px 10px;border-radius:var(--r);color:var(--muted);text-decoration:none;font-size:14px}
+.rail a:hover{background:var(--soft);color:var(--fg)}
+.rail a.on{background:var(--soft);color:var(--fg);font-weight:600}
+.rail a i{font-style:normal;font-family:var(--display);font-weight:700;color:var(--accent);width:18px}
+.rail .meter{margin:14px 10px 0;font-size:12px;color:var(--muted)}
+.bar{height:4px;background:var(--line);border-radius:2px;margin-top:6px;overflow:hidden}
+.bar span{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+
+.rules{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);margin-bottom:28px}
+.rules summary{cursor:pointer;padding:14px 18px;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.rules summary::-webkit-details-marker{display:none}
+.rules summary::after{content:"+";color:var(--accent);font-size:20px;line-height:1}
+.rules[open] summary::after{content:"–"}
+.rules .in{padding:0 18px 18px;display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.rules h3{font-size:15px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;margin-bottom:6px}
+.rules ul{margin:0;padding-left:18px}
+.crit{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+.crit td{padding:5px 0;border-bottom:1px solid var(--line)}
+.crit td:last-child{text-align:right;font-weight:600;padding-left:12px}
+.crit .w{display:block;height:3px;background:var(--accent);opacity:.55;margin-top:3px;border-radius:2px}
+
+section.block{scroll-margin-top:20px;margin-bottom:36px}
+.bh{display:flex;align-items:baseline;gap:14px;border-bottom:2px solid var(--fg);padding-bottom:8px;margin-bottom:20px}
+.bh .n{font-family:var(--display);font-weight:700;font-size:15px;color:var(--accent);letter-spacing:.1em}
+.bh h2{font-size:26px;font-weight:600}
+.grid{display:grid;gap:18px 20px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid .full{grid-column:1/-1}
+@media (max-width:600px){.grid{grid-template-columns:minmax(0,1fr)}}
+.f{display:grid;gap:6px;min-width:0}
+label,.lbl{font-weight:600;font-size:14px}
+.q{font-family:var(--display);font-weight:700;color:var(--muted);margin-right:6px;font-variant-numeric:tabular-nums}
+.req{color:var(--err)}
+.hint{color:var(--muted);font-size:13px;margin:0}
+input[type=text],input[type=email],input[type=tel],input[type=date],input[type=number],textarea,select{
+  width:100%;font:inherit;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:10px 12px}
+textarea{min-height:120px;resize:vertical}
+input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible,.chip input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.bad{border-color:var(--err)!important}
+.errmsg{color:var(--err);font-size:13px}
+.money{position:relative}
+.money::before{content:"R$";position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:14px}
+.money input{padding-left:38px;font-variant-numeric:tabular-nums}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.chip span{display:inline-block;padding:7px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);font-size:14px;cursor:pointer}
+.chip input:checked+span{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.radios{display:flex;flex-wrap:wrap;gap:8px}
+.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+table.ind{width:100%;border-collapse:collapse;min-width:560px}
+table.ind th{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);text-align:left;padding:10px 10px;background:var(--soft);font-weight:600}
+table.ind td{padding:6px 8px;border-top:1px solid var(--line)}
+table.ind td:first-child{font-weight:500;font-size:14px;padding-left:12px;white-space:nowrap}
+table.ind input{padding:7px 9px}
+.count{font-size:12px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+.count.over{color:var(--err);font-weight:600}
+.files{display:grid;gap:8px}
+.files input{font:inherit;font-size:14px;color:var(--muted);background:var(--surface);border:1px dashed var(--line);border-radius:var(--r);padding:10px 12px;width:100%}
+button[disabled]{opacity:.6;cursor:progress}
+
+.actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;border-top:1px solid var(--line);padding-top:22px}
+button,.btn{font:inherit;font-weight:600;border-radius:var(--r);padding:11px 18px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--fg);text-decoration:none;display:inline-block}
+.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.primary:hover{filter:brightness(1.08)}
+.ghost{background:transparent}
+.note{font-size:13px;color:var(--muted)}
+
+/* done panel */
+.done{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--ok);border-radius:var(--r);padding:24px;display:grid;gap:18px}
+.done h2{font-size:28px}
+.steps{display:grid;gap:14px;counter-reset:s;margin:0;padding:0;list-style:none}
+.steps li{display:grid;grid-template-columns:32px minmax(0,1fr);gap:12px;align-items:start}
+.steps li::before{counter-increment:s;content:counter(s);font-family:var(--display);font-weight:700;width:32px;height:32px;border-radius:50%;background:var(--soft);color:var(--accent);display:grid;place-items:center}
+.copyrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:6px}
+.copyrow code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px;background:var(--soft);padding:6px 10px;border-radius:4px;user-select:all;overflow-wrap:anywhere}
+.small{padding:6px 12px;font-size:13px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:10px 16px;border-radius:var(--r);font-size:14px;z-index:20}
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+footer .wrap{padding-block:18px 28px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header class="band">
+  <div class="wrap">
+    <div class="brand" aria-label="Foton">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="2.6"/><path d="M11 14h6l-3 5z M17 14h6l-7 11-3-4z M23 14h6l-11 17-3-4z" fill="currentColor"/></svg>
+      FOTON
+    </div>
+    <div>
+      <div class="eyebrow">Programa de Reconhecimento Pós-Vendas · Pós-Vendas em Ação</div>
+      <h1>Rede Diamante <span>·</span> Formulário de Inscrição</h1>
+      <p class="lede">Inscreva aqui o projeto da sua concessionária que gerou eficiência, redução de custos, produtividade ou uma experiência melhor para o cliente. Pode ser um projeto novo ou já implementado, desde que tenha resultados mensuráveis.</p>
+    </div>
+    <div class="facts">
+      <div class="fact"><b>30/11/2026</b><small>Prazo de envio</small></div>
+      <div class="fact"><b>5 vencedores</b><small>Maiores pontuações</small></div>
+      <div class="fact"><b>Viagem à China</b><small>Visita à matriz em Beijing</small></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap main">
+  <nav class="rail" aria-label="Blocos do formulário">
+    <a href="#b1" data-b="b1"><i>1</i>Identificação</a>
+    <a href="#b2" data-b="b2"><i>2</i>Descrição do projeto</a>
+    <a href="#b3" data-b="b3"><i>3</i>Resultados</a>
+    <a href="#b4" data-b="b4"><i>4</i>Evidências e resumo</a>
+    <div class="meter"><span id="meterTxt">0 de 13 campos obrigatórios</span><div class="bar"><span id="meterBar"></span></div></div>
+  </nav>
+
+  <div id="formArea">
+    <details class="rules">
+      <summary>Regras do programa e critérios de avaliação</summary>
+      <div class="in">
+        <div>
+          <h3>Quem participa</h3>
+          <p style="margin:0 0 8px">Todas as concessionárias da Rede Foton, individualmente ou em equipe, com um ponto focal. Sem limite de projetos por concessionária. Projetos feitos em conjunto por mais de uma concessionária também podem ser inscritos.</p>
+          <h3 style="margin-top:14px">Cronograma</h3>
+          <ul>
+            <li><b>Até 30/11/2026</b>: envio dos projetos</li>
+            <li><b>01/02/2027</b>: avaliação de enquadramento pelo Comitê de Pós-Vendas</li>
+            <li><b>Mar/2027</b>: boas práticas apresentadas na After Sales Convention</li>
+            <li><b>Jun/2027</b>: escolha dos 5 projetos vencedores</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Critérios de avaliação</h3>
+          <table class="crit" id="critTbl"></table>
+        </div>
+      </div>
+    </details>
+
+    <form id="form" novalidate method="post" enctype="multipart/form-data" accept-charset="UTF-8"><div id="hiddenFields"></div><input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
+      <section class="block" id="b1">
+        <div class="bh"><span class="n">BLOCO 1</span><h2>Identificação</h2></div>
+        <div class="grid">
+          <div class="f"><label for="concessionaria"><span class="q">1</span>Concessionária <span class="req">*</span></label><input type="text" id="concessionaria" required placeholder="Razão social ou nome fantasia"></div>
+          <div class="f"><label for="cidade">Cidade / UF</label><input type="text" id="cidade" placeholder="Ex.: Campinas / SP"></div>
+          <div class="f"><label for="responsavel"><span class="q">2</span>Responsável pelo projeto <span class="req">*</span></label><input type="text" id="responsavel" required></div>
+          <div class="f"><label for="cargo"><span class="q">3</span>Cargo <span class="req">*</span></label><input type="text" id="cargo" required placeholder="Ex.: Gerente de Pós-Vendas"></div>
+          <div class="f"><label for="email"><span class="q">4</span>E-mail <span class="req">*</span></label><input type="email" id="email" required autocomplete="email"></div>
+          <div class="f"><label for="telefone">Telefone <span class="req">*</span></label><input type="tel" id="telefone" required placeholder="(11) 90000-0000" autocomplete="tel"></div>
+          <div class="f full"><span class="lbl" id="areasLbl"><span class="q">5</span>Área(s) envolvida(s) <span class="req">*</span></span>
+            <div class="chips" id="areas" role="group" aria-labelledby="areasLbl"></div>
+            <input type="text" id="areaOutra" placeholder="Outra área (opcional)">
+          </div>
+          <div class="f full"><label for="nomeProjeto"><span class="q">6</span>Nome do projeto <span class="req">*</span></label><input type="text" id="nomeProjeto" required></div>
+        </div>
+      </section>
+
+      <section class="block" id="b2">
+        <div class="bh"><span class="n">BLOCO 2</span><h2>Descrição do projeto</h2></div>
+        <div class="grid">
+          <div class="f full"><label for="problema"><span class="q">7</span>Qual era o problema ou oportunidade identificada? <span class="req">*</span></label>
+            <p class="hint">Descreva de forma objetiva a situação encontrada, seus impactos e por que havia necessidade de melhoria.</p>
+            <textarea id="problema" required></textarea></div>
+          <div class="f full"><label for="solucao"><span class="q">8</span>Qual foi a solução desenvolvida? <span class="req">*</span></label>
+            <p class="hint">Descreva a ação implementada, a metodologia utilizada e as principais mudanças realizadas.</p>
+            <textarea id="solucao" required></textarea></div>
+          <div class="f"><label for="inicio"><span class="q">9</span>Data de início</label><input type="date" id="inicio"></div>
+          <div class="f"><label for="conclusao">Data de conclusão</label><input type="date" id="conclusao"><p class="hint">Deixe em branco se o projeto ainda está em andamento.</p></div>
+          <div class="f full"><label for="pessoas"><span class="q">10</span>Quantas pessoas e áreas participaram?</label><input type="text" id="pessoas" placeholder="Ex.: 6 pessoas – Oficina, Peças e Garantia"></div>
+          <div class="f full"><span class="lbl" id="recLbl"><span class="q">11</span>Quais recursos foram necessários?</span>
+            <div class="chips" id="recursos" role="group" aria-labelledby="recLbl"></div>
+            <input type="text" id="recursoOutro" placeholder="Outros recursos (opcional)">
+          </div>
+          <div class="f"><label for="investimento">Valor aproximado do investimento</label><div class="money"><input type="text" id="investimento" inputmode="decimal" placeholder="0,00" data-money></div></div>
+        </div>
+      </section>
+
+      <section class="block" id="b3">
+        <div class="bh"><span class="n">BLOCO 3</span><h2>Resultados</h2></div>
+        <div class="grid">
+          <div class="f full"><label for="resultados"><span class="q">12</span>Quais foram os principais resultados obtidos? <span class="req">*</span></label>
+            <p class="hint">Descreva os resultados quantitativos e qualitativos.</p>
+            <textarea id="resultados" required></textarea></div>
+          <div class="f full"><span class="lbl"><span class="q">13</span>Economia ou ganho financeiro gerado</span></div>
+          <div class="f"><label for="ecoMensal">Economia mensal</label><div class="money"><input type="text" id="ecoMensal" inputmode="decimal" placeholder="0,00" data-money></div></div>
+          <div class="f"><label for="ecoAnual">Economia anual estimada</label><div class="money"><input type="text" id="ecoAnual" inputmode="decimal" placeholder="0,00" data-money></div><p class="hint" id="anualHint"></p></div>
+          <div class="f"><label for="receita">Receita adicional gerada</label><div class="money"><input type="text" id="receita" inputmode="decimal" placeholder="0,00" data-money></div></div>
+          <div class="f"><label for="outrosGanhos">Outros ganhos financeiros</label><div class="money"><input type="text" id="outrosGanhos" inputmode="decimal" placeholder="0,00" data-money></div></div>
+          <div class="f full"><span class="lbl"><span class="q">14</span>Indicadores antes e depois</span>
+            <p class="hint">Preencha os indicadores que se aplicam, com a unidade (ex.: 4,5 h, 12%, R$ 3.200).</p>
+            <div class="tblwrap"><table class="ind"><thead><tr><th>Indicador</th><th>Antes</th><th>Depois</th><th>Melhoria</th></tr></thead><tbody id="indBody"></tbody></table></div>
+          </div>
+          <div class="f full"><span class="lbl" id="q15"><span class="q">15</span>O projeto gerou impacto na experiência do cliente? <span class="req">*</span></span>
+            <div class="radios" role="radiogroup" aria-labelledby="q15" data-name="impCliente"></div>
+            <textarea id="impClienteDesc" placeholder="Descreva o impacto" style="min-height:80px"></textarea></div>
+          <div class="f full"><span class="lbl" id="q16"><span class="q">16</span>O projeto gerou melhoria de produtividade? <span class="req">*</span></span>
+            <div class="radios" role="radiogroup" aria-labelledby="q16" data-name="impProd"></div>
+            <textarea id="impProdDesc" placeholder="Descreva o ganho" style="min-height:80px"></textarea></div>
+          <div class="f full"><span class="lbl" id="q17"><span class="q">17</span>O projeto pode ser replicado em outras concessionárias? <span class="req">*</span></span>
+            <div class="radios" role="radiogroup" aria-labelledby="q17" data-name="replica"></div>
+            <textarea id="replicaDesc" placeholder="Explique como poderia ser replicado" style="min-height:80px"></textarea></div>
+        </div>
+      </section>
+
+      <section class="block" id="b4">
+        <div class="bh"><span class="n">BLOCO 4</span><h2>Evidências e resumo</h2></div>
+        <div class="grid">
+          <div class="f full"><span class="lbl" id="evLbl"><span class="q">18</span>Tipos de evidência apresentados</span>
+            <p class="hint">Marque os tipos de evidência que comprovam os resultados do projeto.</p>
+            <div class="chips" id="evid" role="group" aria-labelledby="evLbl"></div></div>
+          <div class="f full"><span class="lbl">Anexar arquivos de evidência</span>
+            <p class="hint">Até 3 arquivos, com no máximo 10 MB somados (PDF, imagens, planilhas ou apresentações). Arquivos maiores podem ser enviados depois, respondendo ao e-mail de confirmação.</p>
+            <div class="files">
+              <input type="file" id="anexo1" name="attachment1" accept=".pdf,.jpg,.jpeg,.png,.xlsx,.xls,.csv,.docx,.pptx" aria-label="Anexo 1">
+              <input type="file" id="anexo2" name="attachment2" accept=".pdf,.jpg,.jpeg,.png,.xlsx,.xls,.csv,.docx,.pptx" aria-label="Anexo 2">
+              <input type="file" id="anexo3" name="attachment3" accept=".pdf,.jpg,.jpeg,.png,.xlsx,.xls,.csv,.docx,.pptx" aria-label="Anexo 3">
+            </div>
+            <div class="count" id="fsize"></div></div>
+          <div class="f full"><label for="resumo"><span class="q">19</span>Resumo executivo do projeto <span class="req">*</span></label>
+            <p class="hint">Em até 500 palavras, explique por que este projeto merece ser reconhecido como uma das melhores iniciativas de Pós-Vendas da Rede Foton.</p>
+            <textarea id="resumo" required style="min-height:200px"></textarea>
+            <div class="count" id="wc">0 / 500 palavras</div></div>
+        </div>
+      </section>
+
+      <div class="actions">
+        <button type="submit" class="primary" id="sendBtn">Enviar inscrição</button>
+        <button type="button" class="ghost" id="clearBtn">Limpar formulário</button>
+        <span class="note" id="saveNote">Ao enviar, a inscrição vai para a equipe de Pós-Vendas da Foton e uma cópia chega ao e-mail informado no item 4.</span>
+      </div>
+      <p class="errmsg" id="formErr" hidden></p>
+      <div id="confirmClear" hidden class="note" style="margin-top:10px">Apagar tudo o que foi preenchido? <button type="button" class="small" id="clearYes">Sim, apagar</button> <button type="button" class="small ghost" id="clearNo">Cancelar</button></div>
+    </form>
+  </div>
+
+  <div id="doneArea" hidden>
+    <div class="done">
+      <div>
+        <div class="eyebrow" style="color:var(--ok)">Inscrição enviada</div>
+        <h2>Recebemos o seu projeto</h2>
+        <p class="hint" style="margin-top:6px">A inscrição foi enviada para a equipe de Pós-Vendas da Foton do Brasil, e uma cópia foi enviada para o e-mail informado no formulário. Se a cópia não aparecer em alguns minutos, verifique a caixa de spam.</p>
+      </div>
+      <ol class="steps">
+        <li><div><b>Guarde uma cópia da ficha (opcional)</b><div class="copyrow"><button type="button" class="primary small" id="pdfBtn">Salvar em PDF</button><button type="button" class="small" id="dlBtn">Baixar ficha (.html)</button></div><p class="hint" id="dlNote" style="margin-top:6px">“Salvar em PDF” abre a ficha e a janela de impressão: escolha “Salvar como PDF” como impressora.</p></div></li>
+        <li><div><b>Precisa complementar?</b><p class="hint" style="margin:4px 0 0">Responda ao e-mail de confirmação ou escreva para <b>atendimento@fotondobrasil.com.br</b>, informando o nome do projeto.</p></div></li>
+      </ol>
+      <div class="copyrow"><button type="button" class="ghost small" id="newBtn">Enviar outro projeto</button></div>
+    </div>
+  </div>
+</div>
+
+<footer><div class="wrap">Foton do Brasil · Pós-Vendas e Serviços · Dúvidas: atendimento@fotondobrasil.com.br</div></footer>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const CRIT=[["Resultado financeiro / economia gerada",25],["Impacto na eficiência e produtividade",20],["Inovação e criatividade da solução",15],["Melhoria da experiência e satisfação do cliente",15],["Qualidade e sustentabilidade dos resultados",10],["Potencial de replicação na Rede Foton",10],["Clareza e qualidade da apresentação do projeto",5]];
+const AREAS=["Oficina / Serviços","Peças","Garantia","Contratos de Manutenção","Atendimento ao Cliente","Assistência 24h","Qualidade","Gestão / Processos","Tecnologia","Treinamento / Pessoas","Sustentabilidade"];
+const RECURSOS=["Sem investimento","Equipamentos","Tecnologia","Treinamento","Infraestrutura"];
+const EVID=["Fotos","Gráficos","Relatórios","Indicadores antes/depois","Planilhas de cálculo","Pesquisa de satisfação","Outros documentos"];
+const INDS=["Custo","Produtividade","Tempo de execução","Retrabalho","Qualidade","Satisfação do cliente","Outro"];
+const RADIOS={impCliente:["Sim","Não"],impProd:["Sim","Não"],replica:["Sim, facilmente","Sim, com adaptações","Não"]};
+const KEY="redeDiamante.inscricao.v1";
+
+$("#critTbl").innerHTML=CRIT.map(([c,p])=>`<tr><td>${c}<span class="w" style="width:${p*4}%"></span></td><td>${p}%</td></tr>`).join("");
+function chips(el,list,name){el.innerHTML=list.map((t,i)=>`<label class="chip"><input type="checkbox" id="${name}${i}" name="${name}" value="${t}"><span>${t}</span></label>`).join("")}
+chips($("#areas"),AREAS,"area");chips($("#recursos"),RECURSOS,"rec");chips($("#evid"),EVID,"ev");
+$$(".radios").forEach(g=>{const n=g.dataset.name;g.innerHTML=RADIOS[n].map((t,i)=>`<label class="chip"><input type="radio" id="${n}${i}" name="${n}" value="${t}"><span>${t}</span></label>`).join("")});
+$("#indBody").innerHTML=INDS.map((t,i)=>`<tr><td>${i===6?`<input type="text" id="ind${i}n" placeholder="Outro indicador" aria-label="Nome do outro indicador">`:t}</td>${["a","d","m"].map(k=>`<td><input type="text" id="ind${i}${k}" aria-label="${t} – ${{a:"antes",d:"depois",m:"melhoria"}[k]}"></td>`).join("")}</tr>`).join("");
+
+/* money formatting */
+const parseMoney=v=>{v=String(v||"").replace(/[^\d,.-]/g,"");if(!v)return null;v=v.replace(/\./g,"").replace(",",".");const n=parseFloat(v);return isNaN(n)?null:n};
+const fmt=n=>n.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
+$$("[data-money]").forEach(i=>i.addEventListener("blur",()=>{const n=parseMoney(i.value);i.value=n==null?"":fmt(n);upd()}));
+function anualHint(){const m=parseMoney($("#ecoMensal").value);$("#anualHint").textContent=m?`Referência: mensal × 12 = R$ ${fmt(m*12)}`:""}
+
+/* word count */
+const words=s=>(s.trim().match(/\S+/g)||[]).length;
+function wc(){const n=words($("#resumo").value);const el=$("#wc");el.textContent=`${n} / 500 palavras`;el.classList.toggle("over",n>500)}
+
+/* state */
+function collect(){const d={};
+  $$("#form input[type=text],#form input[type=email],#form input[type=tel],#form input[type=date],#form textarea").forEach(e=>d[e.id]=e.value);
+  ["area","rec","ev"].forEach(n=>d[n]=$$(`input[name=${n}]:checked`).map(e=>e.value));
+  Object.keys(RADIOS).forEach(n=>{const c=$(`input[name=${n}]:checked`);d[n]=c?c.value:""});
+  return d}
+function restore(d){if(!d)return;Object.entries(d).forEach(([k,v])=>{
+  if(Array.isArray(v)){$$(`input[name=${k}]`).forEach(e=>e.checked=v.includes(e.value))}
+  else if(RADIOS[k]){$$(`input[name=${k}]`).forEach(e=>e.checked=e.value===v)}
+  else{const e=document.getElementById(k);if(e)e.value=v}})}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(collect()))}catch(e){}}
+try{restore(JSON.parse(localStorage.getItem(KEY)||"null"))}catch(e){}
+
+const REQ=["concessionaria","responsavel","cargo","email","telefone","nomeProjeto","problema","solucao","resultados","resumo"];
+function reqStatus(d){const miss=[];
+  REQ.forEach(k=>{if(!String(d[k]||"").trim())miss.push(k)});
+  if(d.email&&!/^\S+@\S+\.\S+$/.test(d.email))miss.push("email");
+  if(!d.area.length&&!d.areaOutra.trim())miss.push("areas");
+  ["impCliente","impProd","replica"].forEach(k=>{if(!d[k])miss.push(k)});
+  if(words(d.resumo||"")>500)miss.push("resumo");
+  return [...new Set(miss)]}
+function meter(){const d=collect(),m=reqStatus(d),tot=REQ.length+4,done=tot-m.length;
+  $("#meterTxt").textContent=`${done} de ${tot} campos obrigatórios`;$("#meterBar").style.width=(done/tot*100)+"%"}
+let t;function upd(){wc();anualHint();meter();clearTimeout(t);t=setTimeout(save,300)}
+$("#form").addEventListener("input",e=>{e.target.classList.remove("bad");upd()});
+$("#form").addEventListener("change",upd);
+upd();
+
+/* rail highlight */
+const secs=$$("section.block");
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)$$(".rail a").forEach(a=>a.classList.toggle("on",a.dataset.b===e.target.id))}),{rootMargin:"-30% 0px -60% 0px"});
+secs.forEach(s=>io.observe(s));
+
+/* clear */
+$("#clearBtn").onclick=()=>{$("#confirmClear").hidden=false};
+$("#clearNo").onclick=()=>{$("#confirmClear").hidden=true};
+$("#clearYes").onclick=()=>{$("#form").reset();try{localStorage.removeItem(KEY)}catch(e){};$("#confirmClear").hidden=true;$$(".bad").forEach(e=>e.classList.remove("bad"));upd()};
+
+/* ficha */
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const dt=s=>s?s.split("-").reverse().join("/"):"—";
+const money=s=>s?`R$ ${s}`:"—";
+const list=(a,o)=>[...a,...(o&&o.trim()?[o.trim()]:[])].join("; ")||"—";
+function indRows(d){return INDS.map((n,i)=>({n:i===6?(d.ind6n||"Outro"):n,a:d[`ind${i}a`],dp:d[`ind${i}d`],m:d[`ind${i}m`]})).filter(r=>r.a||r.dp||r.m)}
+function sections(d){return [
+ ["BLOCO 1 – IDENTIFICAÇÃO",[["1. Concessionária",d.concessionaria+(d.cidade?` – ${d.cidade}`:"")],["2. Responsável pelo projeto",d.responsavel],["3. Cargo",d.cargo],["4. E-mail / Telefone",`${d.email} / ${d.telefone}`],["5. Área(s) envolvida(s)",list(d.area,d.areaOutra)],["6. Nome do projeto",d.nomeProjeto]]],
+ ["BLOCO 2 – DESCRIÇÃO DO PROJETO",[["7. Problema ou oportunidade identificada",d.problema],["8. Solução desenvolvida",d.solucao],["9. Implementação",`Início: ${dt(d.inicio)} · Conclusão: ${d.conclusao?dt(d.conclusao):"em andamento"}`],["10. Pessoas/áreas participantes",d.pessoas||"—"],["11. Recursos necessários",list(d.rec,d.recursoOutro)],["Valor aproximado do investimento",money(d.investimento)]]],
+ ["BLOCO 3 – RESULTADOS",[["12. Principais resultados",d.resultados],["13. Economia mensal",money(d.ecoMensal)],["Economia anual estimada",money(d.ecoAnual)],["Receita adicional gerada",money(d.receita)],["Outros ganhos financeiros",money(d.outrosGanhos)],["14. Indicadores antes e depois","__IND__"],["15. Impacto na experiência do cliente",`${d.impCliente}${d.impClienteDesc?` – ${d.impClienteDesc}`:""}`],["16. Melhoria de produtividade",`${d.impProd}${d.impProdDesc?` – ${d.impProdDesc}`:""}`],["17. Replicável em outras concessionárias",`${d.replica}${d.replicaDesc?` – ${d.replicaDesc}`:""}`]]],
+ ["BLOCO 4 – EVIDÊNCIAS",[["18. Evidências anexadas",list(d.ev)],["19. Resumo executivo",d.resumo]]]]}
+function fichaHTML(d){const ind=indRows(d);const indT=ind.length?`<table class="t"><tr><th>Indicador</th><th>Antes</th><th>Depois</th><th>Melhoria</th></tr>${ind.map(r=>`<tr><td>${esc(r.n)}</td><td>${esc(r.a)}</td><td>${esc(r.dp)}</td><td>${esc(r.m)}</td></tr>`).join("")}</table>`:"—";
+ const now=new Date().toLocaleDateString("pt-BR");
+ return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Inscrição – ${esc(d.nomeProjeto)}</title><style>
+body{font-family:Aptos,Calibri,Arial,sans-serif;color:#141A26;max-width:820px;margin:0 auto;padding:0 24px 40px;font-size:14px;line-height:1.5}
+.hd{background:#0D0D1F;color:#fff;padding:20px 24px;margin:0 -24px 24px}.hd small{color:#A9B6CA;letter-spacing:.12em;text-transform:uppercase;font-size:11px}.hd h1{margin:4px 0 0;font-size:22px}
+h2{font-size:14px;letter-spacing:.06em;color:#205F9A;border-bottom:2px solid #141A26;padding-bottom:4px;margin:26px 0 10px}
+.r{display:grid;grid-template-columns:230px 1fr;gap:12px;padding:7px 0;border-bottom:1px solid #E1E6EE}.r b{font-weight:600}.v{white-space:pre-wrap}
+.t{border-collapse:collapse;width:100%}.t th,.t td{border:1px solid #CBD3DF;padding:5px 8px;text-align:left}.t th{background:#E8EEF5}
+.ev{margin-top:30px;border:1px solid #CBD3DF;padding:14px}.ev h3{margin:0 0 8px;font-size:13px;letter-spacing:.06em}
+@media print{.hd{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style></head><body><div class="hd"><small>Foton do Brasil · Programa de Reconhecimento Pós-Vendas · Rede Diamante</small><h1>Formulário de Inscrição – ${esc(d.nomeProjeto)}</h1></div>
+<p>Preenchido em ${now} por ${esc(d.responsavel)} (${esc(d.concessionaria)}).</p>
+${sections(d).map(([h,rows])=>`<h2>${h}</h2>${rows.map(([k,v])=>`<div class="r"><b>${esc(k)}</b><div class="v">${v==="__IND__"?indT:esc(v)}</div></div>`).join("")}`).join("")}
+<div class="ev"><h3>AVALIAÇÃO – USO EXCLUSIVO DA FOTON BRASIL</h3><table class="t"><tr><th>Critério</th><th>Peso</th><th>Nota (0–10)</th><th>Pontuação</th></tr>${CRIT.map(([c,p])=>`<tr><td>${c}</td><td>${p}%</td><td></td><td></td></tr>`).join("")}<tr><th>TOTAL</th><th>100%</th><th></th><th></th></tr></table>
+<p>Pontuação: ______ / 100 &nbsp;&nbsp; Posição: ______ &nbsp;&nbsp; ☐ Classificado entre os 5 vencedores &nbsp; ☐ Não classificado</p><p>Avaliador: ______________________ &nbsp;&nbsp; Data: ___/___/______</p></div>
+</body></html>`}
+function fichaText(d){const ind=indRows(d);
+ return `INSCRIÇÃO – PROGRAMA DE RECONHECIMENTO PÓS-VENDAS FOTON (REDE DIAMANTE)\n\n`+sections(d).map(([h,rows])=>`${h}\n`+rows.map(([k,v])=>`${k}: ${v==="__IND__"?(ind.length?"\n"+ind.map(r=>`  - ${r.n}: antes ${r.a||"—"} | depois ${r.dp||"—"} | melhoria ${r.m||"—"}`).join("\n"):"—"):v}`).join("\n")).join("\n\n")}
+
+/* submit — envio por e-mail via FormSubmit */
+const DESTINO="atendimento@fotondobrasil.com.br";            /* troque pelo código-alias do FormSubmit após a ativação */
+const ENDPOINT="https://formsubmit.co/"+DESTINO;
+const MAXB=10*1024*1024;
+function fileTotal(){return ["anexo1","anexo2","anexo3"].reduce((t,id)=>{const f=document.getElementById(id).files;return t+(f&&f[0]?f[0].size:0)},0)}
+$$(".files input").forEach(i=>i.addEventListener("change",()=>{const t=fileTotal(),el=$("#fsize");el.textContent=t?`${(t/1048576).toFixed(1).replace(".",",")} MB de 10 MB`:"";el.classList.toggle("over",t>MAXB)}));
+function addHidden(name,value){const i=document.createElement("input");i.type="hidden";i.name=name;i.value=value;$("#hiddenFields").appendChild(i)}
+let last=null;
+$("#form").addEventListener("submit",e=>{e.preventDefault();const d=collect();const miss=reqStatus(d);
+ $$(".bad").forEach(x=>x.classList.remove("bad"));
+ if(miss.length){miss.forEach(k=>{const el=document.getElementById(k)||document.querySelector(`[data-name=${k}]`);if(el)el.classList.add("bad")});
+  $("#formErr").hidden=false;$("#formErr").textContent=`Faltam ${miss.length} campo(s) obrigatório(s), marcados em vermelho.${words(d.resumo)>500?" O resumo passou de 500 palavras.":""}`;
+  const first=document.getElementById(miss[0])||document.querySelector(`[data-name=${miss[0]}]`);first&&first.scrollIntoView({block:"center",behavior:"smooth"});return}
+ if(fileTotal()>MAXB){$("#formErr").hidden=false;$("#formErr").textContent="Os anexos passam de 10 MB somados. Remova ou reduza algum arquivo.";$("#fsize").scrollIntoView({block:"center"});return}
+ $("#formErr").hidden=true;save();
+ try{localStorage.setItem(KEY+".pending","1")}catch(err){}
+ const H=$("#hiddenFields");H.innerHTML="";
+ addHidden("_subject",`Inscrição Rede Diamante – Projeto ${d.nomeProjeto} / ${d.responsavel} (${d.concessionaria})`);
+ addHidden("_cc",d.email.trim());
+ addHidden("_replyto",d.email.trim());
+ addHidden("_template","table");
+ addHidden("_next",location.href.split("#")[0].split("?")[0]+"?enviado=1");
+ addHidden("email",d.email.trim());
+ const ind=indRows(d);
+ sections(d).forEach(([h,rows])=>rows.forEach(([k,v])=>addHidden(k,v==="__IND__"?(ind.length?ind.map(r=>`${r.n}: antes ${r.a||"—"} | depois ${r.dp||"—"} | melhoria ${r.m||"—"}`).join(" ;  "):"—"):String(v||"—"))));
+ $$("#form input[type=checkbox],#form input[type=radio]").forEach(i=>i.removeAttribute("name"));
+ const f=$("#form");f.action=ENDPOINT;
+ const btn=$("#sendBtn");btn.disabled=true;btn.textContent="Enviando…";
+ HTMLFormElement.prototype.submit.call(f)});
+
+/* volta do envio */
+if(/[?&]enviado=1/.test(location.search)){
+ let pend=false;try{pend=localStorage.getItem(KEY+".pending")==="1"}catch(err){}
+ try{last=JSON.parse(localStorage.getItem(KEY)||"null")}catch(err){}
+ $("#formArea").hidden=true;$(".rail").style.visibility="hidden";$("#doneArea").hidden=false;
+ if(!last){$("#pdfBtn").closest("li").hidden=true}
+ try{localStorage.removeItem(KEY+".pending")}catch(err){}
+}
+$("#newBtn").onclick=()=>{try{localStorage.removeItem(KEY)}catch(e){};location.href=location.href.split("?")[0]};
+function toast(m){const t=document.createElement("div");t.className="toast";t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2200)}
+function copy(text,el){const ok=()=>toast("Copiado");
+ const fb=()=>{if(el){const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);toast("Texto selecionado – use Ctrl+C")}else{const ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");ok()}catch(e){toast("Não foi possível copiar")}ta.remove()}};
+ try{navigator.clipboard.writeText(text).then(ok,fb)}catch(e){fb()}}
+const slug=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^\w]+/g,"-").replace(/^-|-$/g,"").slice(0,60);
+$("#dlBtn").onclick=()=>{if(!last)return;
+ try{const blob=new Blob([fichaHTML(last)],{type:"text/html;charset=utf-8"});const u=URL.createObjectURL(blob);const a=document.createElement("a");
+  a.href=u;a.download=`Inscricao-RedeDiamante-${slug(last.concessionaria)}-${slug(last.nomeProjeto)}.html`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);toast("Ficha baixada")}
+ catch(e){$("#dlNote").textContent="O download não funcionou neste navegador. Use “Copiar texto da ficha” e cole no corpo do e-mail."}};
+$("#pdfBtn").onclick=()=>{if(!last)return;const w=window.open("","_blank");if(!w){$("#dlNote").textContent="Seu navegador bloqueou a nova janela. Libere pop-ups para este site ou baixe a ficha em .html.";return}
+ w.document.open();w.document.write(fichaHTML(last).replace("</body>","<script>window.onload=()=>setTimeout(()=>window.print(),300)<\/script></body>"));w.document.close()};
+})();
+</script>
+
+</body>
+</html>
